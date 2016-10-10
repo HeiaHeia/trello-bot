@@ -1,0 +1,9 @@
+{
+    "trello-user": "REPLACE",
+    "trello-key": "REPLACE",
+    "trello-token": "REPLACE",
+    "board-name": "REPLACE",
+    "start-list-name": "REPLACE",
+    "finished-list-name": "REPLACE",
+    "port": "80"
+}
