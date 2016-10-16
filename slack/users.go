@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nlopes/slack"
+	"strings"
 )
 
 func getUserWithUsername(username string) (user slack.User, err error) {
@@ -20,4 +21,19 @@ func getUserWithUsername(username string) (user slack.User, err error) {
 	}
 
 	return slack.User{}, errors.New(fmt.Sprintf("No user with username %s", username))
+}
+
+func parseUsername(name string) (username string, err error) {
+
+	username = strings.ToLower(name)
+
+	if strings.Contains(username, " ") {
+		return "", errors.New(fmt.Sprintf("%s is not a Slack username", name))
+	}
+
+	if strings.Contains(name, "@") {
+		username = strings.Replace(username, "@", "", 1)
+	}
+
+	return
 }
