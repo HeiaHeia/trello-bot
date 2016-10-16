@@ -13,6 +13,7 @@ type Config struct {
 	BoardName        string `json:"board-name"`
 	StartListName    string `json:"start-list-name"`
 	FinishedListName string `json:"finished-list-name"`
+	SlackToken       string `json:"slack-token"`
 	Port             string `json:"port"`
 }
 
