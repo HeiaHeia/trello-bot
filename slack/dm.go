@@ -26,7 +26,7 @@ func sendDm(user slack.User, message string) error {
 		return err
 	}
 
-	_, _, err = slackClient.PostMessage(channel, message, slack.PostMessageParameters{})
+	_, _, err = slackClient.PostMessage(channel, message, slack.PostMessageParameters{AsUser: true})
 
 	return err
 }
