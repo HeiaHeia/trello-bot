@@ -17,7 +17,6 @@ func WebhookHandler(w http.ResponseWriter, r *http.Request) {
 	case "HEAD":
 		handlePing(w)
 	case "POST":
-		fmt.Println("Handler post")
 		response, err := handleUpdate(w, r)
 		if err != nil {
 			fmt.Println("Error handling update: ", err)
