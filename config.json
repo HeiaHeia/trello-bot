@@ -1,9 +1,11 @@
 {
-    "trello-user": "REPLACE",
-    "trello-key": "REPLACE",
-    "trello-token": "REPLACE",
-    "board-name": "REPLACE",
-    "start-list-name": "REPLACE",
-    "finished-list-name": "REPLACE",
+    "trello_user": "REPLACE",
+    "trello_key": "REPLACE",
+    "trello_token": "REPLACE",
+    "board_name": "REPLACE",
+    "start_list_name": "REPLACE",
+    "finished_list_name": "REPLACE",
+    "slack_token": "REPLACE",
+    "listen_url": "REPLACE",
     "port": "80"
 }

@@ -7,14 +7,14 @@ import (
 )
 
 type Config struct {
-	TrelloUser       string `json:"trello-user"`
-	TrelloKey        string `json:"trello-key"`
-	TrelloToken      string `json:"trello-token"`
-	BoardName        string `json:"board-name"`
-	StartListName    string `json:"start-list-name"`
-	FinishedListName string `json:"finished-list-name"`
-	SlackToken       string `json:"slack-token"`
-	ListenURL        string `json:"listen-url"`
+	TrelloUser       string `json:"trello_user"`
+	TrelloKey        string `json:"trello_key"`
+	TrelloToken      string `json:"trello_token"`
+	BoardName        string `json:"board_name"`
+	StartListName    string `json:"start_list_name"`
+	FinishedListName string `json:"finished_list_name"`
+	SlackToken       string `json:"slack_token"`
+	ListenURL        string `json:"listen_url"`
 	Port             string `json:"port"`
 }
 
