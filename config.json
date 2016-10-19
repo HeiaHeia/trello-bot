@@ -5,6 +5,7 @@
     "board_name": "REPLACE",
     "start_list_name": "REPLACE",
     "finished_list_name": "REPLACE",
+    "notify_channel": "",
     "slack_token": "REPLACE",
     "listen_url": "REPLACE",
     "port": "80"
