@@ -64,6 +64,6 @@ func sendMessageForCard(card *trello.Card, message string) {
 		return
 	}
 	for _, comment := range comments {
-		slack.DmUpdate(comment, message)
+		_ = slack.TryMessageUsername(comment, message)
 	}
 }
