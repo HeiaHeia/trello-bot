@@ -17,7 +17,8 @@ func main() {
 		User:             config.TrelloUser,
 		Board:            config.BoardName,
 		StartingListName: config.StartListName,
-		FinishedListName: config.FinishedListName})
+		FinishedListName: config.FinishedListName,
+		NotifyChannel:    config.NotifyChannel})
 
 	slack.Authenticate(config.SlackToken)
 
