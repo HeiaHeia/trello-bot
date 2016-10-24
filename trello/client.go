@@ -11,6 +11,7 @@ type TrelloConfig struct {
 	Board            string
 	StartingListName string
 	FinishedListName string
+	NotifyChannel    string
 }
 
 var trelloClient *trello.Client
