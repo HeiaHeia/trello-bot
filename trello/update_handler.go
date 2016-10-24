@@ -44,7 +44,11 @@ func cardFinished(cardID string) {
 		return
 	}
 
-	sendMessageForCard(card, fmt.Sprintf("%s is now finished", card.Name))
+	message := fmt.Sprintf("%s is now finished", card.Name)
+	sendMessageForCard(card, message)
+	if len(trelloConfig.NotifyChannel) > 0 {
+		slack.TryMessageChannelName(trelloConfig.NotifyChannel, message)
+	}
 }
 
 func cardAccepted(action trello.Action) {
