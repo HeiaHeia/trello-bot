@@ -14,6 +14,7 @@ type Config struct {
 	StartListName    string `json:"start_list_name"`
 	FinishedListName string `json:"finished_list_name"`
 	NotifyChannel    string `json:"notify_channel"`
+	InfoChannel      string `json:"info_channel"`
 	SlackToken       string `json:"slack_token"`
 	ListenURL        string `json:"listen_url"`
 	Port             string `json:"port"`
