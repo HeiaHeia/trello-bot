@@ -27,6 +27,10 @@ func main() {
 
 	go trello.SetupWebhooks(globalConfig.ListenURL)
 	http.HandleFunc("/trello_webhook", trello.WebhookHandler)
+	uid := RandomizeUID()
+	err := slack.TryMessageChannelName(globalConfig.InfoChannel, fmt.Sprint("Trellobot report URL is ", globalConfig.ListenURL+"/"+uid))
+	fmt.Println("Error sending report URL:", err)
+	http.HandleFunc("/"+uid, reportHandler)
 	listen := fmt.Sprintf(":%v", globalConfig.Port)
 	fmt.Println("Starting server...")
 	http.ListenAndServe(listen, nil)
