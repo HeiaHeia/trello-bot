@@ -6,6 +6,9 @@
     "start_list_name": "REPLACE",
     "finished_list_name": "REPLACE",
     "notify_channel": "",
+    "info_channel": "",
+    "report_days": -14,
+    "report_lists": [],
     "slack_token": "REPLACE",
     "listen_url": "REPLACE",
     "port": "80"

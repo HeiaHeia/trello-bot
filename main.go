@@ -2,29 +2,47 @@ package main
 
 import (
 	"fmt"
+	"github.com/aodin/date"
 	"net/http"
 	"trello-bot/slack"
 	"trello-bot/trello"
 )
 
+var globalConfig Config
+
 func main() {
 
-	config := LoadConfig("config.json")
+	globalConfig = LoadConfig("config.json")
 
 	trello.Authenticate(trello.TrelloConfig{
-		Key:              config.TrelloKey,
-		Token:            config.TrelloToken,
-		User:             config.TrelloUser,
-		Board:            config.BoardName,
-		StartingListName: config.StartListName,
-		FinishedListName: config.FinishedListName,
-		NotifyChannel:    config.NotifyChannel})
+		Key:              globalConfig.TrelloKey,
+		Token:            globalConfig.TrelloToken,
+		User:             globalConfig.TrelloUser,
+		Board:            globalConfig.BoardName,
+		StartingListName: globalConfig.StartListName,
+		FinishedListName: globalConfig.FinishedListName,
+		NotifyChannel:    globalConfig.NotifyChannel})
 
-	slack.Authenticate(config.SlackToken)
+	slack.Authenticate(globalConfig.SlackToken)
 
-	go trello.SetupWebhooks(config.ListenURL)
+	go trello.SetupWebhooks(globalConfig.ListenURL)
 	http.HandleFunc("/trello_webhook", trello.WebhookHandler)
-	listen := fmt.Sprintf(":%v", config.Port)
+	uid := RandomizeUID()
+	err := slack.TryMessageChannelName(globalConfig.InfoChannel, fmt.Sprint("Trellobot report URL is ", globalConfig.ListenURL+"/"+uid))
+	fmt.Println("Error sending report URL:", err)
+	http.HandleFunc("/"+uid, reportHandler)
+	listen := fmt.Sprintf(":%v", globalConfig.Port)
 	fmt.Println("Starting server...")
 	http.ListenAndServe(listen, nil)
+}
+
+func reportHandler(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("Loading Report")
+	report, err := trello.CompletedReport(date.NewRange(date.Today().AddDays(globalConfig.ReportDays), date.Today()), globalConfig.ReportLists)
+	if err != nil {
+		fmt.Fprintln(w, "Error loading report")
+		return
+	}
+	fmt.Fprintln(w, report)
 }
