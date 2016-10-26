@@ -13,7 +13,7 @@ Automatic Slack notifications for Trello-based development workflows.
 
 The recommended installation method is with Docker (Docker quick install: `$ curl -sSL https://get.docker.com/ | sh`). After downloading the project:
 
-1. Fill the values in `confif.json`
+1. Fill the values in `config.json`
 2. Run `$ make run-detached`
 
 ## Configuration
