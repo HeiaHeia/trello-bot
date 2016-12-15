@@ -5,13 +5,9 @@ import (
 )
 
 type TrelloConfig struct {
-	Key              string
-	Token            string
-	User             string
-	Board            string
-	StartingListName string
-	FinishedListName string
-	NotifyChannel    string
+	Key   string
+	Token string
+	User  string
 }
 
 var trelloClient *trello.Client
