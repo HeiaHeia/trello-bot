@@ -7,17 +7,20 @@ import (
 )
 
 type Config struct {
-	TrelloUser  string `json:"trello_user"`
-	TrelloKey   string `json:"trello_key"`
-	TrelloToken string `json:"trello_token"`
-	SlackToken  string `json:"slack_token"`
-	ListenURL   string `json:"listen_url"`
-	Port        string `json:"port"`
+	TrelloUser   string        `json:"trello_user"`
+	TrelloKey    string        `json:"trello_key"`
+	TrelloToken  string        `json:"trello_token"`
+	SlackToken   string        `json:"slack_token"`
+	ListenURL    string        `json:"listen_url"`
+	Port         string        `json:"port"`
+	BoardConfigs []BoardConfig `json:"board_configs"`
 }
 
 type BoardConfig struct {
 	BoardName         string       `json:"board_name"`
 	NotifyChannelName string       `json:"notify_channel_name"`
+	OnAction          string       `json:"on_action"`
+	MessageTemplate   string       `json:"message_template"`
 	ListConfigs       []ListConfig `json:"list_configs"`
 }
 
@@ -26,6 +29,11 @@ type ListConfig struct {
 	OnAction        string `json:"on_action"`
 	MessageTemplate string `json:"message_template"`
 }
+
+const (
+	ActionMovedTo   string = "moved_to"
+	ActionMovedFrom string = "moved_from"
+)
 
 func LoadConfig(filename string) Config {
 
