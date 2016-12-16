@@ -14,14 +14,7 @@ func main() {
 
 	globalConfig = LoadConfig("config.json")
 
-	trello.Authenticate(trello.TrelloConfig{
-		Key:              globalConfig.TrelloKey,
-		Token:            globalConfig.TrelloToken,
-		User:             globalConfig.TrelloUser,
-		Board:            globalConfig.BoardName,
-		StartingListName: globalConfig.StartListName,
-		FinishedListName: globalConfig.FinishedListName,
-		NotifyChannel:    globalConfig.NotifyChannel})
+	trello.Authenticate(trello.TrelloConfig{Key: globalConfig.TrelloKey, Token: globalConfig.TrelloToken, User: globalConfig.TrelloUser, ActionHandler: ActionHandler})
 
 	slack.Authenticate(globalConfig.SlackToken)
 
