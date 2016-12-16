@@ -5,9 +5,10 @@ import (
 )
 
 type TrelloConfig struct {
-	Key   string
-	Token string
-	User  string
+	Key           string
+	Token         string
+	User          string
+	ActionHandler func(action trello.Action)
 }
 
 var trelloClient *trello.Client
