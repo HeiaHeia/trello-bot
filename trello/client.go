@@ -6,7 +6,7 @@ import (
 
 var trelloClient *trello.Client
 
-func Authenticate(config TrelloConfig) error {
+func Setup(config TrelloConfig) error {
 
 	trelloConfig = config
 

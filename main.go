@@ -19,8 +19,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	trello.Authenticate(trello.TrelloConfig{Key: globalConfig.TrelloKey, Token: globalConfig.TrelloToken, User: globalConfig.TrelloUser, ActionHandler: ActionHandler})
-	slack.Authenticate(globalConfig.SlackToken)
+	trello.Setup(trello.TrelloConfig{Key: globalConfig.TrelloKey, Token: globalConfig.TrelloToken, User: globalConfig.TrelloUser, ActionHandler: ActionHandler})
+	slack.Setup(globalConfig.SlackToken)
 
 	for i := range globalConfig.BoardConfigs {
 		boardName := globalConfig.BoardConfigs[i].BoardName
