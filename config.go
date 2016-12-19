@@ -1,35 +1,35 @@
 package main
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
+	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
 )
 
 type Config struct {
-	TrelloUser   string        `json:"trello_user"`
-	TrelloKey    string        `json:"trello_key"`
-	TrelloToken  string        `json:"trello_token"`
-	SlackToken   string        `json:"slack_token"`
-	ListenURL    string        `json:"listen_url"`
-	Port         string        `json:"port"`
-	BoardConfigs []BoardConfig `json:"board_configs"`
+	TrelloUser   string        `yaml:"trello_user"`
+	TrelloKey    string        `yaml:"trello_key"`
+	TrelloToken  string        `yaml:"trello_token"`
+	SlackToken   string        `yaml:"slack_token"`
+	ListenURL    string        `yaml:"listen_url"`
+	Port         string        `yaml:"port"`
+	BoardConfigs []BoardConfig `yaml:"board_configs"`
 }
 
 type BoardConfig struct {
-	BoardName         string       `json:"board_name"`
-	NotifyChannelName string       `json:"notify_channel_name"`
-	OnAction          string       `json:"on_action"`
-	MessageTemplate   string       `json:"message_template"`
-	ListConfigs       []ListConfig `json:"list_configs"`
+	BoardName         string       `yaml:"board_name"`
+	NotifyChannelName string       `yaml:"notify_channel_name"`
+	OnAction          string       `yaml:"on_action"`
+	MessageTemplate   string       `yaml:"message_template"`
+	ListConfigs       []ListConfig `yaml:"list_configs"`
 }
 
 type ListConfig struct {
-	ListName        string `json:"list_name"`
-	OnAction        string `json:"on_action"`
-	MessageTemplate string `json:"message_template"`
+	ListName        string `yaml:"list_name"`
+	OnAction        string `yaml:"on_action"`
+	MessageTemplate string `yaml:"message_template"`
 }
 
 const (
@@ -51,7 +51,7 @@ func LoadConfig() (Config, error) {
 		return Config{}, fmt.Errorf("Error reading config file: %v\n", err)
 	}
 
-	json.Unmarshal(file, &config)
+	yaml.Unmarshal(file, &config)
 
 	return config, nil
 }

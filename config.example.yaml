@@ -1,0 +1,17 @@
+---
+trello_user: "REPLACE"
+trello_key: "REPLACE"
+trello_token: "REPLACE"
+slack_token: "REPLACE"
+listen_url: "REPLACE"
+port: 80
+board_configs:
+  - board_name: "Board name"
+    notify_channel_name: "Slack channel name"
+    list_configs:
+      - list_name: "List name"
+        on_action: moved_from
+        message_template: "[card_name] moved from list [card_link]"
+      - list_name: "Another list"
+        on_action: moved_to
+        message_template: "[card_name] is finished [card_link]"
