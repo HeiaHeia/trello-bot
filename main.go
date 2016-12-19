@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 	"trello-bot/slack"
@@ -12,7 +13,11 @@ var globalConfig Config
 
 func main() {
 
-	globalConfig = LoadConfig("config.json")
+	var err error
+	globalConfig, err = LoadConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	trello.Authenticate(trello.TrelloConfig{Key: globalConfig.TrelloKey, Token: globalConfig.TrelloToken, User: globalConfig.TrelloUser, ActionHandler: ActionHandler})
 	slack.Authenticate(globalConfig.SlackToken)

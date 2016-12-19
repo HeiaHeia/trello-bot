@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
+	"os"
 )
 
 type Config struct {
@@ -35,16 +37,35 @@ const (
 	ActionMovedFrom string = "moved_from"
 )
 
-func LoadConfig(filename string) Config {
+func LoadConfig() (Config, error) {
+
+	filename, err := getConfigPath()
+	if err != nil {
+		return Config{}, err
+	}
 
 	var config Config
 
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
-		fmt.Printf("Error reading config file: %v\n", err)
+		return Config{}, fmt.Errorf("Error reading config file: %v\n", err)
 	}
 
 	json.Unmarshal(file, &config)
 
-	return config
+	return config, nil
+}
+
+func getConfigPath() (string, error) {
+
+	envPath := os.Getenv("TRELLOBOT_CONFIG_PATH")
+	defaultPath := "/etc/trellobot/trellobot.conf"
+
+	for _, path := range []string{envPath, defaultPath} {
+		if _, err := os.Stat(path); err == nil {
+			return path, nil
+		}
+	}
+
+	return "", errors.New("Config file location not specified")
 }
