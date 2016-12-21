@@ -6,16 +6,6 @@ import (
 	"github.com/joonasmyhrberg/go-trello"
 )
 
-func getMainBoard() (board trello.Board, err error) {
-
-	user, err := trelloClient.Member(trelloConfig.User)
-	if err != nil {
-		return trello.Board{}, err
-	}
-
-	return getBoard(trelloConfig.Board, user)
-}
-
 func getBoard(name string, user *trello.Member) (board trello.Board, err error) {
 
 	boards, err := user.Boards()

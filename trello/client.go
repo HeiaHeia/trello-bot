@@ -4,20 +4,9 @@ import (
 	"github.com/joonasmyhrberg/go-trello"
 )
 
-type TrelloConfig struct {
-	Key              string
-	Token            string
-	User             string
-	Board            string
-	StartingListName string
-	FinishedListName string
-	NotifyChannel    string
-}
-
 var trelloClient *trello.Client
-var trelloConfig TrelloConfig
 
-func Authenticate(config TrelloConfig) error {
+func Setup(config TrelloConfig) error {
 
 	trelloConfig = config
 

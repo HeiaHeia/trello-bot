@@ -6,7 +6,7 @@ import (
 
 var slackClient *slack.Client
 
-func Authenticate(token string) {
+func Setup(token string) {
 
 	slackClient = slack.New(token)
 }
