@@ -8,7 +8,7 @@ The recommended installation method is with Docker (Docker quick install: `$ cur
 
 1. Copy the example config: `$ cp config.example.yaml config.yaml`
 2. Fill the values in the config.
-3. Run `$ docker run -d -p 80:80 $PWD/config.yaml:/etc/trellobot/trellobot.conf --name trellobot joonasmyhrberg/trello-bot`
+3. Run `$ docker run -d -p 80:80 -v $PWD/config.yaml:/etc/trellobot/trellobot.conf --name trellobot joonasmyhrberg/trello-bot`
 
 ## Configuration
 
