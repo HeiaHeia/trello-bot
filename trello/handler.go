@@ -21,7 +21,7 @@ func WebhookHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println("Error handling update: ", err)
 		}
-		trelloConfig.ActionHandler(response.Action)
+		go trelloConfig.ActionHandler(response.Action)
 	default:
 		w.WriteHeader(http.StatusInternalServerError)
 	}
