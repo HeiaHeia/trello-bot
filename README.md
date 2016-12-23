@@ -8,7 +8,7 @@ The recommended installation method is with Docker (Docker quick install: `$ cur
 
 1. Copy the example config: `$ cp config.example.yaml config.yaml`
 2. Fill the values in the config.
-3. Run `$ docker run -d -p 80:80 -v $PWD/config.yaml:/etc/trellobot/trellobot.conf --name trellobot joonasmyhrberg/trello-bot`
+3. Run `$ docker run -d -p 80:80 -v ~/config.yaml:/etc/trellobot/trellobot.conf --name trellobot joonasmyhrberg/trello-bot`
 
 ## Configuration
 
@@ -29,4 +29,4 @@ Example configuration file can be found from [config.example.yaml].
   - `list_configs` Configurations for all the lists that should be monitored.
     - `list_name` Name of the list.
     - `on_action` The action that should trigger the notification. Can be `moved_to` or `moved_from`.
-    - `message_template` The template that will be used to render the notification. Possible placeholders: `[card_name]` and `[card_link]`
+    - `message_template` The template that will be used to render the notification. Possible placeholders: `[card_name]`, `[card_link] and [card_labels]`
