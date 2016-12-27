@@ -4,6 +4,7 @@ import (
 	"github.com/joonasmyhrberg/go-trello"
 	"strings"
 	"trello-bot/slack"
+	trelloHelper "trello-bot/trello"
 )
 
 const (
@@ -12,8 +13,9 @@ const (
 )
 
 const (
-	TemplateCardName string = "[card_name]"
-	TemplateCardLink string = "[card_link]"
+	TemplateCardName   string = "[card_name]"
+	TemplateCardLink   string = "[card_link]"
+	TemplateCardLabels string = "[card_labels]"
 )
 
 func ActionHandler(action trello.Action) {
@@ -49,12 +51,19 @@ func checkBoardAction(boardConfig BoardConfig, action trello.Action) {
 }
 
 func sendMessage(template, channel string, action trello.Action) {
-	message := parseMessage(template, action.Data.Card.Name, "https://trello.com/c/"+action.Data.Card.ShortLink)
+	message := parseMessage(action.Data.Card.Id, template, action.Data.Card.Name, "https://trello.com/c/"+action.Data.Card.ShortLink)
 	slack.TryMessageChannelName(channel, message)
 }
 
-func parseMessage(template, name, link string) (message string) {
+func parseMessage(cardID, template, name, link string) (message string) {
 	message = strings.Replace(template, TemplateCardName, name, -1)
 	message = strings.Replace(message, TemplateCardLink, link, -1)
+	labels := trelloHelper.GetCardLabels(cardID)
+	if len(labels) > 0 {
+		labelsString := strings.Join(labels, ", ") + ": "
+		message = strings.Replace(message, TemplateCardLabels, labelsString, -1)
+	} else {
+		message = strings.Replace(message, TemplateCardLabels, "", -1)
+	}
 	return
 }
