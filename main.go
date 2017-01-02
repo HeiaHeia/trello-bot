@@ -19,8 +19,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	trello.Setup(trello.TrelloConfig{Key: globalConfig.TrelloKey, Token: globalConfig.TrelloToken, User: globalConfig.TrelloUser, ActionHandler: ActionHandler})
-	slack.Setup(globalConfig.SlackToken)
+	err = trello.Setup(trello.TrelloConfig{Key: globalConfig.TrelloKey, Token: globalConfig.TrelloToken, User: globalConfig.TrelloUser, ActionHandler: ActionHandler})
+	if err != nil {
+		log.Fatal(err)
+	}
+	go slack.Start(globalConfig.SlackToken, MessageHandler)
 
 	for i := range globalConfig.BoardConfigs {
 		boardName := globalConfig.BoardConfigs[i].BoardName
