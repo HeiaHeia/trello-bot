@@ -1,34 +1,41 @@
 package slack
 
 import (
+	"fmt"
 	slackAPI "github.com/nlopes/slack"
 	"maunium.net/go/maubot"
 	"maunium.net/go/maubot/slack"
+	"strings"
 )
 
 var bot maubot.Maubot
-var slackClient slackAPI.RTM
+var slackClient *slackAPI.Client
 var slackUID string
+var slackUserID string
 
 func Start(token string, messageHandler func(message maubot.Message)) error {
 
-	bot = maubot.New()
-	slackBot, err := slack.New(token)
-	slackUID = slackBot.UID()
-	slackRTM, ok := slackBot.Underlying().(slackAPI.RTM)
-	if ok {
-		slackClient = slackRTM
-	}
+	slackClient = slackAPI.New(token)
+	auth, err := slackClient.AuthTest()
 	if err != nil {
 		return err
 	}
+	slackUserID = auth.UserID
+	bot = maubot.New()
+	slackBot, err := slack.New(token)
+	if err != nil {
+		return err
+	}
+	slackUID = slackBot.UID()
 	err = slackBot.Connect()
 	if err != nil {
 		return err
 	}
 	bot.Add(slackBot)
 	for message := range bot.Messages() {
-		messageHandler(message)
+		if strings.HasPrefix(message.Text(), "<@"+slackUserID+">") {
+			messageHandler(message)
+		}
 	}
 
 	return nil
@@ -63,6 +70,8 @@ func TryMessageUsername(username, message string) error {
 }
 
 func messageChannel(channel slackAPI.Channel, message string) {
+
+	fmt.Println("Trying to send message", message)
 
 	outgoingMessage := maubot.OutgoingMessage{Text: message, RoomID: channel.ID, PlatformID: slackUID}
 	bot.SendMessage(outgoingMessage)
