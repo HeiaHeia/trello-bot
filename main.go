@@ -20,7 +20,7 @@ func main() {
 	}
 
 	trello.Setup(trello.TrelloConfig{Key: globalConfig.TrelloKey, Token: globalConfig.TrelloToken, User: globalConfig.TrelloUser, ActionHandler: ActionHandler})
-	slack.Start(globalConfig.SlackToken)
+	go slack.Start(globalConfig.SlackToken, MessageHandler)
 
 	for i := range globalConfig.BoardConfigs {
 		boardName := globalConfig.BoardConfigs[i].BoardName
