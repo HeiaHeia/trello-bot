@@ -13,7 +13,7 @@ var slackClient *slackAPI.Client
 var slackUID string
 var slackUserID string
 
-func Start(token string, messageHandler func(message maubot.Message)) error {
+func Start(token string, messageHandler func(message maubot.Message, mention, dm bool)) error {
 
 	slackClient = slackAPI.New(token)
 	auth, err := slackClient.AuthTest()
@@ -33,8 +33,10 @@ func Start(token string, messageHandler func(message maubot.Message)) error {
 	}
 	bot.Add(slackBot)
 	for message := range bot.Messages() {
-		if strings.HasPrefix(message.Text(), "<@"+slackUserID+">") {
-			messageHandler(message)
+		mention := strings.HasPrefix(message.Text(), "<@"+slackUserID+">")
+		dm := strings.HasPrefix(message.RoomID(), "D")
+		if mention || dm {
+			messageHandler(message, mention, dm)
 		}
 	}
 

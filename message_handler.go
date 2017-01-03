@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func MessageHandler(message maubot.Message) {
+func MessageHandler(message maubot.Message, mention, dm bool) {
 	if strings.Contains(message.Text(), "ping") {
 		message.Reply("pong")
 	}
