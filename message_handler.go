@@ -16,7 +16,7 @@ func MessageHandler(message maubot.Message, mention, dm bool) {
 
 	if strings.HasPrefix(strings.ToLower(message.Text()), "report") {
 		if strings.ToLower(message.Text()) == "report" {
-			message.Reply("Usage: `report board:\"Board name\" days:\"14\" lists\"List, Another list`\"")
+			message.Reply("Usage: `report board:\"Board name\" days:\"14\" lists:\"List, Another list\"`")
 		} else {
 			r := regexp.MustCompile("board:\"(.*)\" days:\"(.\\d)\" lists:\"(.*)\"")
 			result := r.FindStringSubmatch(message.Text())
