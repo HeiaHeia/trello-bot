@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/joonasmyhrberg/go-trello"
 	"strings"
 	"trello-bot/slack"
 	trelloHelper "trello-bot/trello"
+
+	"github.com/joonasmyhrberg/go-trello"
 )
 
 const (
@@ -60,7 +61,7 @@ func parseMessage(cardID, template, name, link string) (message string) {
 	message = strings.Replace(message, TemplateCardLink, link, -1)
 	labels := trelloHelper.GetCardLabels(cardID)
 	if len(labels) > 0 {
-		labelsString := strings.Join(labels, ", ") + ": "
+		labelsString := strings.Join(labels, ", ") + ":"
 		message = strings.Replace(message, TemplateCardLabels, labelsString, -1)
 	} else {
 		message = strings.Replace(message, TemplateCardLabels, "", -1)
